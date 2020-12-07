@@ -1,0 +1,18 @@
+{
+  "name": "nctl-js",
+  "version": "0.1.0",
+  "description": "CSPR JS SDK demonstrations over an NCTL network",
+  "main": "index.js",
+  "repository": "https://github.com/CasperLabs/nctl-js",
+  "author": "Mark A. Greenslade",
+  "license": "MIT",
+  "dependencies": {
+    "casper-client-sdk": "^1.0.5",
+    "esm": "^3.2.25",
+    "sleep": "^6.3.0"
+  },
+  "scripts": {
+    "demo-01": "node -r esm -e 'require(\"./src/demo01.js\")'",
+    "demo-02": "node -r esm -e 'require(\"./src/demo02.js\")'"
+  }
+}
