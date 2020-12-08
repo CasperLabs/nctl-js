@@ -19,9 +19,6 @@ const NCTL_NET_ID = 1;
 // Default NCTL node identifier.
 const NCTL_NODE_ID = 1;
 
-// Default NCTL user identifier.
-const NCTL_USER_ID = 1;
-
 // Default amount (CSPR) transferred between counter-parties.
 const TRANSFER_AMOUNT = 1e9;
 
