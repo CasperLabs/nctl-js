@@ -31,19 +31,27 @@ const GAS_PAYMENT = 1e11;
 // Helper function to log balances.
 const logBalances = (balanceType, faucetBalance, userBalance) => {
     console.log("------------------------------------------------------");
-    console.log(`Faucet CSPR balance (${balanceType}): ${faucetBalance}`);
-    console.log(`User CSPR balance   (${balanceType}): ${userBalance}`);
+    console.log(`Account CSPR Balances (${balanceType}):`);
+    console.log(`... faucet: ${faucetBalance}`);
+    console.log(`... user:   ${userBalance}`);
+    console.log("------------------------------------------------------");
+}
+
+// Helper function to log deploy.
+const logDeploy = (deployHash, deployAsJSON) => {
+    console.log("------------------------------------------------------");
+    console.log("Deploy Info:");
+    console.log(deployAsJSON);
+    console.log("... awaiting finalisation ... please wait ...");
     console.log("------------------------------------------------------");
 }
 
 // Helper function to log balances.
 const logKeys = (faucetKeyPair, userKeyPair) => {
     console.log("------------------------------------------------------");
-    console.log("Faucet:");
-    console.log(`... public key: ${faucetKeyPair.publicKey.rawPublicKey.toString('hex')}`);
-    console.log(`... account key: ${faucetKeyPair.publicKey.toAccountHex()}`);
-    console.log(`... account hash: ${faucetKeyPair.accountHash()}`);
-    // console.log(`User CSPR balance   (${balanceType}): ${userBalance}`);
+    console.log("Account Keys:");
+    console.log(`... faucet: ${faucetKeyPair.accountHex()}`);
+    console.log(`... user:   ${userKeyPair.accountHex()}`);
     console.log("------------------------------------------------------");
 }
 
@@ -56,12 +64,12 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
     const userKeyPair = Keys.Ed25519.new();
     logKeys(faucetKeyPair, userKeyPair);
 
-    return
-
     // Step 2: display initial balances.
-    let faucetBalance = await client.balanceOfByPublicKey(faucetKeyPair.publicKey);
-    let userBalance = await client.balanceOfByPublicKey(userKeyPair.publicKey);
-    logBalances("initial", faucetBalance, userBalance);
+    logBalances(
+        "initial",
+        await client.balanceOfByPublicKey(faucetKeyPair.publicKey),
+        await client.balanceOfByPublicKey(userKeyPair.publicKey)
+        );
 
     // Step 3: set deploy parameters.
     const params = {
@@ -79,12 +87,18 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
     // Step 5: set deploy - signed.
     const deploy = client.signDeploy(deployUnsigned, faucetKeyPair); 
 
+    // Step 5: set deploy - JSON representation.
+    const deployJSON = client.deployToJson(deploy)
+
     // Step 6: set deploy hash (result of dispatch to chain).
     const deployHash = await client.putDeploy(deploy);
-
-    // Step 7: display initial balances.
+    logDeploy(deployHash, deployJSON)
     sleep.sleep('10');
-    faucetBalance = await client.balanceOfByPublicKey(faucetKeyPair.publicKey);
-    userBalance = await client.balanceOfByPublicKey(userKeyPair.publicKey);
-    logBalances("final", faucetBalance, userBalance);
+
+    // Step 7: display final balances.
+    logBalances(
+        "final",
+        await client.balanceOfByPublicKey(faucetKeyPair.publicKey),
+        await client.balanceOfByPublicKey(userKeyPair.publicKey)
+        );
 })();
