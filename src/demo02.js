@@ -10,7 +10,7 @@ import {
 import * as sleep from 'sleep';
 import * as nctl from './nctl/index';
 
-// Node JSON-RPC API RPC endpoint. 
+// Node JSON-RPC API endpoint. 
 const NODE_URL_RPC = 'http://localhost:40101/rpc';
 
 // Default NCTL net identifier.
@@ -22,10 +22,10 @@ const NCTL_NODE_ID = 1;
 // Default NCTL user identifier.
 const NCTL_USER_ID = 1;
 
-// Default amount transferred between counter-parties .
+// Default amount (CSPR) transferred between counter-parties.
 const TRANSFER_AMOUNT = 1e9;
 
-// Default amount transferred between counter-parties .
+// Default gas payment (motes).
 const GAS_PAYMENT = 1e11;
 
 // Helper function to log balances.
@@ -79,7 +79,7 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
         ),
         transfer: new DeployUtil.Transfer(TRANSFER_AMOUNT, userKeyPair.publicKey),
         payment: DeployUtil.standardPayment(GAS_PAYMENT)
-    }
+    };
 
     // Step 4: set deploy - unsigned.
     const deployUnsigned = client.makeTransferDeploy(params.deploy, params.transfer, params.payment);
