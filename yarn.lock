@@ -48,9 +48,9 @@ bn.js@^4.4.0:
   integrity sha512-E6QoYqCKZfgatHTdHzs1RRKP7ip4vvm+EyRUeE2RF0NblwVvb0p6jSVeNTOFxPn26QXN2o6SMfNxKp6kU8zQaw==
 
 casper-client-sdk@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/casper-client-sdk/-/casper-client-sdk-1.0.5.tgz#42d97ccc94b3766a5d145ddc815c2585614ee3e3"
-  integrity sha512-QnYvlvTj0rrVWMZ6MHJEal3PvWJwvzoNCMR8UFcJhtxspwIGQfjMADjuzS/omRC1eJKG7SHiHxpKdem+96VnTw==
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/casper-client-sdk/-/casper-client-sdk-1.0.6.tgz#ce2e9c1adfbf8b3426fefd004ee029827305e4b7"
+  integrity sha512-Dp+L8FBE8Nyh2gzVP84cIl5TeG4knYkz1iwZCDjFpRgL4GuHE7JJNISWOJ6EodVQtQIYSLS3AGRuk+rBu9ECNw==
   dependencies:
     "@ethersproject/bignumber" "^5.0.8"
     "@ethersproject/bytes" "^5.0.5"
@@ -82,9 +82,9 @@ follow-redirects@^1.10.0:
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
 humanize-duration@^3.24.0:
-  version "3.24.0"
-  resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.24.0.tgz#d851ca6fb93277e30ad789e88bd2019655f514c1"
-  integrity sha512-B3udnqisaDeRsvUSb+5n2hjxhABI9jotB+i1IEhgHhguTeM5LxIUKoVIu7UpeyaPOygr/Fnv7UhOi45kYYG+tg==
+  version "3.25.0"
+  resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.25.0.tgz#ac73be923dbef477c48116f033f8e150f3e0028a"
+  integrity sha512-QXth17C/8J2QVO0urby5sANmgvwdOF4YZW3mO13ZTkJli4ltVphzMJVG+HkVuTN/bIq1W/O0jRYSyQACus/GVQ==
 
 iconv-lite@^0.6.2:
   version "0.6.2"

@@ -1,18 +1,19 @@
 /**
  * @fileOverview Demonstration of CSPR JS SDK - 01.
+ * Transfers - execute using nctl.
  */
 
-import * as sleep from 'sleep';
 import * as nctl from './nctl/index';
+import * as sleep from 'sleep';
 
 // Default NCTL net identifier.
-const NCTL_NET_ID = 1;
+const NET_ID = 1;
 
 // Default NCTL node identifier.
-const NCTL_NODE_ID = 1;
+const NODE_ID = 1;
 
 // Default NCTL user identifier.
-const NCTL_USER_ID = 1;
+const USER_ID = 1;
 
 // Default amount transferred between counter-parties .
 const TRANSFER_AMOUNT = 1e9;
@@ -37,13 +38,13 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
 
 (async function () {
     // Step 0: set account keys.
-    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet(NCTL_NET_ID, NCTL_NODE_ID);
-    const userKeyPair = nctl.crypto.getKeyPairOfUser(NCTL_NET_ID, NCTL_USER_ID);
+    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet(NET_ID, NODE_ID);
+    const userKeyPair = nctl.crypto.getKeyPairOfUser(NET_ID, USER_ID);
     logKeys(faucetKeyPair, userKeyPair);
 
     // Step 1: display initial balances.
-    let faucetBalance = await nctl.chain.getAccountBalanceOfFaucet(NCTL_NET_ID);
-    let userBalance = await nctl.chain.getAccountBalanceOfUser(NCTL_NET_ID, NCTL_NODE_ID, NCTL_USER_ID);
+    let faucetBalance = await nctl.chain.getAccountBalanceOfFaucet(NET_ID);
+    let userBalance = await nctl.chain.getAccountBalanceOfUser(NET_ID, NODE_ID, USER_ID);
     logBalances("initial", faucetBalance, userBalance);
 
     // Step 2: dispatch a wasmless deploy from faucet to user 1.
@@ -52,13 +53,13 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
             faucetKeyPair,
             userKeyPair,
             TRANSFER_AMOUNT,
-            NCTL_NET_ID,
-            NCTL_NODE_ID,
+            NET_ID,
+            NODE_ID,
             );
 
     // Step 3: Display user account information.
     sleep.sleep('2');
-    faucetBalance = await nctl.chain.getAccountBalanceOfFaucet(NCTL_NET_ID, NCTL_NODE_ID);
-    userBalance = await nctl.chain.getAccountBalanceOfUser(NCTL_NET_ID, NCTL_NODE_ID, NCTL_USER_ID);
+    faucetBalance = await nctl.chain.getAccountBalanceOfFaucet(NET_ID, NODE_ID);
+    userBalance = await nctl.chain.getAccountBalanceOfUser(NET_ID, NODE_ID, USER_ID);
     logBalances("final", faucetBalance, userBalance);
 })();

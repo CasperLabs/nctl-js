@@ -2,7 +2,7 @@
  * @fileOverview NCTL cryptographic functions.
  */
 
- import { Keys } from 'casper-client-sdk';
+import { Keys } from 'casper-client-sdk';
 import * as io from './io';
 
 

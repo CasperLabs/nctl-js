@@ -1,5 +1,6 @@
 /**
  * @fileOverview Demonstration of CSPR JS SDK - 02.
+ * Transfers - execute using SDK directly.
  */
 
 import { 
@@ -7,17 +8,17 @@ import {
     Keys,
     DeployUtil
 } from 'casper-client-sdk';
-import * as sleep from 'sleep';
 import * as nctl from './nctl/index';
-
-// Node JSON-RPC API endpoint. 
-const NODE_URL_RPC = 'http://localhost:40101/rpc';
+import * as sleep from 'sleep';
 
 // Default NCTL net identifier.
-const NCTL_NET_ID = 1;
+const NET_ID = 1;
 
 // Default NCTL node identifier.
-const NCTL_NODE_ID = 1;
+const NODE_ID = 1;
+
+// Node JSON-RPC API endpoint. 
+const NODE_URL_RPC = nctl.utils.getNodeURLForRPC(NET_ID, NODE_ID);
 
 // Default amount (CSPR) transferred between counter-parties.
 const TRANSFER_AMOUNT = 1e9;
@@ -57,7 +58,7 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
     const client = new CasperClient(NODE_URL_RPC, null);
 
     // Step 1: set account keys.
-    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet(NCTL_NET_ID, NCTL_NODE_ID);
+    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet(NET_ID, NODE_ID);
     const userKeyPair = Keys.Ed25519.new();
     logKeys(faucetKeyPair, userKeyPair);
 
@@ -72,7 +73,7 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
     const params = {
         deploy: new DeployUtil.DeployParams(
             faucetKeyPair.publicKey,
-            `casper-net-${NCTL_NET_ID}`
+            `casper-net-${NET_ID}`
         ),
         transfer: new DeployUtil.Transfer(TRANSFER_AMOUNT, userKeyPair.publicKey),
         payment: DeployUtil.standardPayment(GAS_PAYMENT)

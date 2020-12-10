@@ -13,6 +13,9 @@
   },
   "scripts": {
     "demo-01": "node -r esm -e 'require(\"./src/demo01.js\")'",
-    "demo-02": "node -r esm -e 'require(\"./src/demo02.js\")'"
+    "demo-02": "node -r esm -e 'require(\"./src/demo02.js\")'",
+    "demo-03": "node -r esm -e 'require(\"./src/demo03.js\")'",
+    "demo-04": "node -r esm -e 'require(\"./src/demo04.js\")'",
+    "demo-05": "node -r esm -e 'require(\"./src/demo05.js\")'"
   }
 }

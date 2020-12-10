@@ -2,7 +2,7 @@
  * @fileOverview NCTL file system i/o functions.
  */
 
- // Path to NCTL root folder.
+// Path to NCTL root folder.
 export const PATH_TO_NCTL = process.env.NCTL;
 
 /**
@@ -13,12 +13,19 @@ export const getPathToAssets = () => {
 };
 
 /**
+ * Returns path to a network binary.
+ */
+export const getPathToBinary = (netID, binaryFileName) => {
+    return `${getPathToNet(netID)}/bin/${binaryFileName}`;
+};
+
+/**
  * Returns path to a network's faucet root directory.
  *
  * @param {Integer} netID - Identifier of an NCTL test network.
  */
 export const getPathToFaucet = (netID) => {
-    return `${getPathToNet(netID)}/faucet`
+    return `${getPathToNet(netID)}/faucet`;
 };
 
 /**
@@ -27,7 +34,7 @@ export const getPathToFaucet = (netID) => {
  * @param {Integer} netID - Identifier of an NCTL test network.
  */
 export const getPathToFaucetPublicKeyPEMFile = (netID) => {
-    return `${getPathToFaucet(netID)}/public_key.pem`
+    return `${getPathToFaucet(netID)}/public_key.pem`;
 };
 
 /**
@@ -36,7 +43,7 @@ export const getPathToFaucetPublicKeyPEMFile = (netID) => {
  * @param {Integer} netID - Identifier of an NCTL test network.
  */
 export const getPathToFaucetSecretKeyPEMFile = (netID) => {
-    return `${getPathToFaucet(netID)}/secret_key.pem`
+    return `${getPathToFaucet(netID)}/secret_key.pem`;
 };
 
 /**
@@ -45,7 +52,7 @@ export const getPathToFaucetSecretKeyPEMFile = (netID) => {
  * @param {Integer} netID - Identifier of an NCTL test network.
  */
 export const getPathToNet = (netID) => {
-    return `${getPathToAssets()}/net-${netID}`
+    return `${getPathToAssets()}/net-${netID}`;
 };
 
 /**
@@ -55,7 +62,7 @@ export const getPathToNet = (netID) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
  export const getPathToNode = (netID, nodeID) => {
-    return `${getPathToNet(netID)}/nodes/node-${nodeID}`
+    return `${getPathToNet(netID)}/nodes/node-${nodeID}`;
 };
 
 /**
@@ -65,7 +72,7 @@ export const getPathToNet = (netID) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
 export const getPathToNodeConfigFile = (netID, nodeID) => {
-    return `${getPathToNode(netID, nodeID)}/config/node-config.toml`
+    return `${getPathToNode(netID, nodeID)}/config/node-config.toml`;
 };
 
 /**
@@ -75,7 +82,7 @@ export const getPathToNodeConfigFile = (netID, nodeID) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
 export const getPathToNodeKeys = (netID, nodeID) => {
-    return `${getPathToNode(netID, nodeID)}/keys`
+    return `${getPathToNode(netID, nodeID)}/keys`;
 };
 
 /**
@@ -85,7 +92,7 @@ export const getPathToNodeKeys = (netID, nodeID) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
 export const getPathToNodeLogs = (netID, nodeID) => {
-    return `${getPathToNode(netID, nodeID)}/logs`
+    return `${getPathToNode(netID, nodeID)}/logs`;
 };
 
 /**
@@ -95,7 +102,7 @@ export const getPathToNodeLogs = (netID, nodeID) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
 export const getPathToNodeStorage = (netID, nodeID) => {
-    return `${getPathToNode(netID, nodeID)}/storage`
+    return `${getPathToNode(netID, nodeID)}/storage`;
 };
 
 /**
@@ -105,5 +112,5 @@ export const getPathToNodeStorage = (netID, nodeID) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
 export const getPathToUser = (netID, userID) => {
-    return `${getPathToNet(netID)}/users/user-${userID}`
+    return `${getPathToNet(netID)}/users/user-${userID}`;
 };
