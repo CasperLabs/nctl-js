@@ -10,32 +10,10 @@ import {
     Keys,
     DeployUtil
 } from 'casper-client-sdk';
-import * as constants from './constants';
-import * as crypto from './crypto';
-import * as utils from './utils';
+import * as constants from '../constants';
+import * as crypto from '../crypto';
+import * as utils from '../utils';
 
-
-/**
- * Returns a configured CasperClient instance.
- *
- * @return {CasperClient} A configured casper client ready for use.
-*/
-export const getClient = (nodeID = constants.NODE_ID) => {
-    const nodeURL = utils.getNodeURLForRPC(constants.NET_ID, nodeID);
-
-    return new CasperClient(nodeURL, null);
-};
-
-/**
- * Returns a configured CasperServiceByJsonRPC instance.
- *
- * @return {CasperServiceByJsonRPC} A configured casper json RPC client ready for use.
-*/
-export const getClientJsonRPC = (nodeID = constants.NODE_ID) => {
-    const nodeURL = utils.getNodeURLForRPC(constants.NET_ID, nodeID);
-
-    return new CasperServiceByJsonRPC(nodeURL);
-};
 
 /**
  * Returns account balance of a network faucet account.
@@ -126,35 +104,3 @@ export const getAccountBalanceOfUserSet = async () => {
         constants.USER_ID_SET.map(getAccountBalanceOfUser)
         )
 };
-
-/**
- * Dispatches an on-chain account transfer to a test node.
- *
- * @param {Integer} payment - Payment in motes to be attached to deploy.
- * @return {Object} transferInfo - Tuple of client, deeploy hash & deploy.
-*/
-export const doTransfer = async (fromKeyPair, toKeyPair, amount=1000000000, payment=100000000000) => {
-    // Set client.
-    const client = getClient();
-
-    // Set deploy parameters.
-    const params = {
-        deploy: new DeployUtil.DeployParams(
-            fromKeyPair.publicKey,
-            utils.getChainID()
-            ),
-        transfer: new DeployUtil.Transfer(amount, toKeyPair.publicKey, null, 1),
-        payment: DeployUtil.standardPayment(payment)
-    }
-
-    // Set deploy - unsigned.
-    const deployUnsigned = client.makeTransferDeploy(params.deploy, params.transfer, params.payment);
-
-    // Set deploy - signed.
-    const deploy = client.signDeploy(deployUnsigned, fromKeyPair); 
-
-    // Set deploy hash (result of dispatch to chain).
-    const deployHash = await client.putDeploy(deploy);
-
-    return {client, deployHash, deploy};
-}

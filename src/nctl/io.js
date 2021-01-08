@@ -2,10 +2,23 @@
  * @fileOverview NCTL file system i/o functions.
  */
 
+import * as fs from 'fs';
 import * as constants from './constants';
+
 
 // Path to NCTL root folder.
 export const PATH_TO_NCTL = process.env.NCTL;
+
+/**
+ * Returns contract wasm as byte array.
+ * @param {String} fileName - Name of a contract wasm file to be loaded into memory.
+ * @return {Uint8Array} Byte array.
+ */
+export const getContractWasm = (fileName) => {
+    const pathToBinary = getPathToBinary(fileName);
+
+    return new Uint8Array(fs.readFileSync(pathToBinary, null).buffer);
+};
 
 /**
  * Returns path to a network's asset set.

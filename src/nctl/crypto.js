@@ -2,7 +2,7 @@
  * @fileOverview NCTL cryptographic functions.
  */
 
-import { CasperHDKey, Keys } from 'casper-client-sdk';
+import { Keys } from 'casper-client-sdk';
 import * as constants from './constants';
 import * as io from './io';
 
