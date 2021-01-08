@@ -58,7 +58,7 @@ const logKeys = (faucetKeyPair, userKeyPair) => {
     const client = new CasperClient(NODE_URL_RPC, null);
 
     // Step 1: set account keys.
-    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet(NET_ID, NODE_ID);
+    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet();
     const userKeyPair = Keys.Ed25519.new();
     logKeys(faucetKeyPair, userKeyPair);
 

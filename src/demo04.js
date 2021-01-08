@@ -26,7 +26,7 @@ const NODE_URL_RPC = nctl.utils.getNodeURLForRPC(NET_ID, NODE_ID);
 const GAS_PAYMENT = 1e11;
 
 // Chain identifier.
-const CHAIN_ID = nctl.utils.getChainID(NET_ID);
+const CHAIN_ID = nctl.utils.getChainID();
 
 // Token parameters.
 const TOKEN_NAME = "Acme Token";
@@ -56,7 +56,7 @@ const logDeploy = (deployHash) => {
     const client = new CasperClient(NODE_URL_RPC, null);
 
     // Step 1: set contract wasm.
-    const contractPath = nctl.io.getPathToBinary(NET_ID, "erc20.wasm");
+    const contractPath = nctl.io.getPathToBinary("erc20.wasm");
     const contractWASM = fs.readFileSync(contractPath);
 
     // Step 2: set contract args (passed to constructor).
@@ -65,10 +65,10 @@ const logDeploy = (deployHash) => {
         new NamedArg("tokenSymbol", CLValue.fromString(TOKEN_SYMBOL)),
         new NamedArg("tokenTotalSupply", CLValue.fromU512(TOKEN_TOTAL_SUPPLY)),
     ]);
-    const contractArgsAsBytes = contractArgs.toBytes()
+    const contractArgsAsBytes = contractArgs.toBytes();
 
     // Step 3: set contract owner key pair.
-    const contractOwnerKeyPair = nctl.crypto.getKeyPairOfFaucet(NET_ID, NODE_ID);
+    const contractOwnerKeyPair = nctl.crypto.getKeyPairOfFaucet();
 
     // Step 4: set deploy parameters.
     const params = {

@@ -2,9 +2,21 @@
  * @fileOverview NCTL cryptographic functions.
  */
 
-import { Keys } from 'casper-client-sdk';
+import { CasperHDKey, Keys } from 'casper-client-sdk';
+import * as constants from './constants';
 import * as io from './io';
 
+
+/**
+ * Returns a derived account from a master seed and account index.
+ *
+ * @param {Integer} index - Derived account index.
+ * @param {Bytes} seed - 32 byte hd wallet seed.
+ * @return {Keys.KeyPair} A derived ECC key pair.
+*/
+const getDerivedAccount = (index, seed = constants.HD_WALLET_SEED) => {
+    return CasperHDKey.fromMasterSeed(seed).deriveIndex(index);
+}
 
 /**
  * Returns an ED25519 ECC key pair from PEM files previously copied into a directory.
@@ -20,30 +32,38 @@ const getKeyPair = (pathToKeyFolder) => {
 }
 
 /**
- * Returns a network faucet's ECC key pair.
- *
- * @param {Integer} netID - Identifier of an NCTL test network.
+ * Returns network faucet ECC key pair.
  */
-export const getKeyPairOfFaucet = (netID) => {
-    return getKeyPair(io.getPathToFaucet(netID));
+export const getKeyPairOfFaucet = () => {
+    return getKeyPair(io.getPathToFaucet());
 }
 
 /**
- * Returns a node's ECC key pair.
+ * Returns a node ECC key pair.
  *
- * @param {Integer} netID - Identifier of an NCTL test network.
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  */
-export const getKeyPairOfNode = (netID, nodeID) => {
-    return getKeyPair(io.getPathToNodeKeys(netID, nodeID));
+export const getKeyPairOfNode = (nodeID) => {
+    return getKeyPair(
+        io.getPathToNodeKeys(nodeID)
+        );
 }
 
 /**
- * Returns a user's ECC key pair.
+ * Returns a user ECC key pair.
  *
- * @param {Integer} netID - Identifier of an NCTL test network.
  * @param {Integer} userID - Identifier of an NCTL test user.
  */
-export const getKeyPairOfUser = (netID, userID) => {
-    return getKeyPair(io.getPathToUser(netID, userID));
+export const getKeyPairOfUser = (userID) => {
+    return getKeyPair(
+        io.getPathToUser(userID)
+        );
+}
+
+/**
+ * Returns a set ECC key pairs - one for each user.
+ *
+ */
+export const getKeyPairOfUserSet = () => {
+    return constants.USER_ID_SET.map(getKeyPairOfUser);
 }

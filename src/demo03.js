@@ -27,7 +27,7 @@ const EVENT_STORE_URL = 'http://localhost:3000';
     let client = new CasperClient(NODE_URL_RPC, EVENT_STORE_URL);
 
     // Step 1: set faucet account key pair.
-    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet(NET_ID, NODE_ID);
+    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet();
 
     // Step 2: set faucet main purse Uref (on-chain query).
     const faucetMainPurseUref = await client.getAccountMainPurseUref(faucetKeyPair.publicKey);
@@ -37,10 +37,10 @@ const EVENT_STORE_URL = 'http://localhost:3000';
     const faucetTransfers = await client.getTransfersByPurse(faucetMainPurseUref);
 
     // Step 4: set incoming transfers.
-    const faucetTransfersIncoming = transfers.filter(t => t.targetPurse == faucetMainPurseUref);
+    const faucetTransfersIncoming = faucetTransfers.filter(t => t.targetPurse == faucetMainPurseUref);
     console.log(`# of incoming transfers: ${faucetTransfersIncoming.length}`);
 
     // Step 5: set outgoing transfers.
-    const faucetTransfersOutgoing = transfers.filter(t => t.sourcePurse == faucetMainPurseUref);
+    const faucetTransfersOutgoing = faucetTransfers.filter(t => t.sourcePurse == faucetMainPurseUref);
     console.log(`# of outgoing transfers: ${faucetTransfersOutgoing.length}`);
 })();

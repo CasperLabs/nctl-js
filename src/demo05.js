@@ -26,7 +26,7 @@ const NODE_URL_RPC = nctl.utils.getNodeURLForRPC(NET_ID, NODE_ID);
 const GAS_PAYMENT = 1e11;
 
 // Chain identifier.
-const CHAIN_ID = nctl.utils.getChainID(NET_ID);
+const CHAIN_ID = nctl.utils.getChainID();
 
 // Token parameters.
 const TOKEN_NAME = "Acme Token";
@@ -56,7 +56,7 @@ const logDeploy = (deployHash) => {
     const client = new CasperClient(NODE_URL_RPC, null);
 
     // Step 1: set contract owner key pair.
-    const contractOwnerKeyPair = nctl.crypto.getKeyPairOfFaucet(NET_ID, NODE_ID);
+    const contractOwnerKeyPair = nctl.crypto.getKeyPairOfFaucet();
 
     // Step 2: set contract on-chain hash.
     let stateRootHash = await client.nodeClient.getStateRootHash();
@@ -71,4 +71,3 @@ const logDeploy = (deployHash) => {
 
     // TODO: query contract for token decimals.
 })();
-
