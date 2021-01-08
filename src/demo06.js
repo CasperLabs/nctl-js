@@ -21,6 +21,8 @@ const user_4 = nctl.crypto.getKeyPairOfUser(4);
 // grant those accounts permissions to perform transfers.  However they will not
 // be able to add other accounts - this remains available only to the faucet account. 
 const main = async () => {
+    // 0. Install  key management contrct under faucet account.
+    await nctl.contracts.keyManagement.install(faucet, CONTRACT_FILEPATH);
     
     // 1. Set default associated key weight -> 3.
     await nctl.chain.accounts.setAssociatedKeyWeight(faucet, 3);
@@ -39,13 +41,13 @@ const main = async () => {
     // 5. Dispatch a trasfer from the faucet - signed using associated keys.
     await nctl.chain.accounts.transfer(faucet, user_4, 100000000, signer=[user_1, user_2])
 
-    // 5. Remove 2 associated keys.
+    // 6. Remove 2 associated keys.
     await nctl.chain.accounts.deleteAssociatedKey(faucet, user_1);
     await nctl.chain.accounts.deleteAssociatedKey(faucet, user_2);
 
-    // 6. Dispatch a transfer from faucet - signed using faucet default key.
+    // 7. Dispatch a transfer from faucet - signed using faucet default key.
     await nctl.chain.accounts.transfer(faucet, user_3, 100000000, signer=faucet)
 
-    // 7. Dispatch a transfer from faucet - signed using associated keys.
+    // 8. Dispatch a transfer from faucet - signed using associated keys.
     await nctl.chain.accounts.transfer(faucet, user_4, 100000000, signer=[user_1, user_2])
 };
