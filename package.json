@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "casper-client-sdk": "^1.0.5",
+    "commander": "^6.2.1",
     "esm": "^3.2.25",
     "jsbi": "^3.1.4",
     "sleep": "^6.3.0"

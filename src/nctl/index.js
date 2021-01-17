@@ -3,17 +3,19 @@
  */
 
 import * as accounts from './accounts';
-import * as constants from './constants';
-import * as crypto from './crypto';
-import * as io from './io';
-import * as types from './types';
-import * as utils from './utils';
+import * as chain from './chain';
+import * as constants from './utils/constants';
+import * as contracts from './contracts';
+import * as crypto from './utils/crypto';
+import * as io from './utils/io';
+import * as node from './utils/node';
 
 export {
     accounts,
+    chain,
     constants,
+    contracts,
     crypto,
     io,
-    types,
-    utils,
+    node,
 }

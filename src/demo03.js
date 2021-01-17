@@ -3,44 +3,42 @@
  * Transfers - query for all faucet main purse transfers.
  */
 
-import { 
-    CasperClient,
-    Keys,
-    DeployUtil
-} from 'casper-client-sdk';
 import * as nctl from './nctl/index';
 
-// Default NCTL net identifier.
-const NET_ID = 1;
 
-// Default NCTL node identifier.
-const NODE_ID = 1;
+// Demonstration entry point.
+const main = async (client) => {
+    // Step 1: set faucet key pair.
+    const keyPair = nctl.crypto.getKeyPairOfFaucet();
+    console.log(`Faucet account key:  ${keyPair.accountHex()}`);
 
-// Node JSON-RPC API endpoint. 
-const NODE_URL_RPC = nctl.utils.getNodeURLForRPC(NET_ID, NODE_ID);
+    // Step 2: set faucet account hash.
+    const accountHash = nctl.accounts.getHash(keyPair);
+    console.log(`Faucet account hash:  ${accountHash}`);
 
-// Set event store endpoint path.
-const EVENT_STORE_URL = 'http://localhost:3000';
+    // Step 3: set faucet main purse Uref (on-chain query).
+    const mainPurseUref = await client.getAccountMainPurseUref(keyPair.publicKey);
+    console.log(`Faucet main purse Uref:  ${mainPurseUref}`);
 
-(async function () {
-    // Step 0: create a client connected to a Casper Node.
-    let client = new CasperClient(NODE_URL_RPC, EVENT_STORE_URL);
+    // Step 4: set faucet main purse transfers (on-chain query).
+    const transfers = await client.getTransfersByPublicKey(keyPair.publicKey);
+    if (transfers.length === 0) {
+        console.log("Please run demo 01 in order to view transfers.")
+        return;
+    }
 
-    // Step 1: set faucet account key pair.
-    const faucetKeyPair = nctl.crypto.getKeyPairOfFaucet();
+    // Step 5: set faucet transfers (incoming).
+    const transfersIncoming = transfers.filter(t => t.targetPurse == mainPurseUref);
+    console.log(`Faucet main purse # of incoming transfers: ${transfersIncoming.length}`);
 
-    // Step 2: set faucet main purse Uref (on-chain query).
-    const faucetMainPurseUref = await client.getAccountMainPurseUref(faucetKeyPair.publicKey);
-    console.log(`Faucet's main purse Uref:  ${faucetMainPurseUref}`);
+    // Step 6: set faucet transfers (outgoing).
+    const transfersOutgoing = transfers.filter(t => t.sourcePurse == mainPurseUref);
+    console.log(`Faucet main purse # of outgoing transfers: ${transfersOutgoing.length}`);
 
-    // Step 3: set faucet main purse transfers (on-chain query).
-    const faucetTransfers = await client.getTransfersByPurse(faucetMainPurseUref);
+    console.log("------------------------------------------------------");
+    console.log("Example transfer data returned from event store:");
+    console.log(transfers[Math.floor(Math.random() * transfers.length)]);
+    console.log("------------------------------------------------------");
+};
 
-    // Step 4: set incoming transfers.
-    const faucetTransfersIncoming = faucetTransfers.filter(t => t.targetPurse == faucetMainPurseUref);
-    console.log(`# of incoming transfers: ${faucetTransfersIncoming.length}`);
-
-    // Step 5: set outgoing transfers.
-    const faucetTransfersOutgoing = faucetTransfers.filter(t => t.sourcePurse == faucetMainPurseUref);
-    console.log(`# of outgoing transfers: ${faucetTransfersOutgoing.length}`);
-})();
+main(nctl.node.getClient());

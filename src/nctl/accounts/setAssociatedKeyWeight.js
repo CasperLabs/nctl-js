@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+
 const {
     NamedArg,
     RuntimeArgs,
@@ -6,10 +7,12 @@ const {
     DeployUtil,
 } = require('casper-client-sdk');
 
-import * as constants from '../constants';
-import * as io from '../io';
-import * as utils from '../utils';
+import * as constants from '../utils/constants';
+import * as io from '../utils/io';
+import * as node from '../utils/node';
 
+
+// File name of relevant smart contract.
 const CONTRACT_FILENAME = "keys-manager.wasm";
 
 
@@ -23,14 +26,14 @@ const CONTRACT_FILENAME = "keys-manager.wasm";
 export default async (account1, account2, weight) => {
     const [client, deploy] = getDeploy(account1, account2, weight);
 
-    return await utils.dispatchDeploy(client, deploy, [account1]);
+    return await node.dispatchDeploy(client, deploy, [account1]);
 };
 
 /**
  * Returns native transfer deploy for dispatch to chain.
  */
 const getDeploy = (account1, account2, weight) => {
-    const client = utils.getClient();
+    const client = node.getClient();
     const deploy = client.makeDeploy(
         new DeployUtil.DeployParams(
             account1.publicKey,

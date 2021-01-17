@@ -2,8 +2,8 @@ const {
     DeployUtil,
 } = require('casper-client-sdk');
 
-import * as constants from '../constants';
-import * as utils from '../utils';
+import * as constants from '../utils/constants';
+import * as node from '../utils/node';
 
 
 /**
@@ -17,18 +17,18 @@ import * as utils from '../utils';
 export default async (cp1, cp2, amount, approvalKeys = null) => {
     const [client, deploy] = getDeploy(cp1, cp2, amount);
 
-    return await utils.dispatchDeploy(client, deploy, approvalKeys || [cp1]);
+    return await node.dispatchDeploy(client, deploy, approvalKeys || [cp1]);
 };
 
 /**
  * Returns native transfer deploy for dispatch to chain.
  */
 const getDeploy = (cp1, cp2, amount) => {
-    const client = utils.getClient();
+    const client = node.getClient();
     const deploy = client.makeTransferDeploy(
         new DeployUtil.DeployParams(
             cp1.publicKey,
-            utils.getChainID(),
+            constants.getChainID(),
             ),
         new DeployUtil.Transfer(
             amount,

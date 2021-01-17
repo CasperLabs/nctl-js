@@ -4,103 +4,89 @@
 
 import * as JSBI from 'jsbi';
 
-import { 
-    CasperClient,
-    CasperServiceByJsonRPC,
-    Keys,
-    DeployUtil
-} from 'casper-client-sdk';
-import * as constants from '../constants';
-import * as crypto from '../crypto';
-import * as utils from '../utils';
+import * as constants from '../utils/constants';
+import * as crypto from '../utils/crypto';
+import * as node from '../utils/node';
 
 
 /**
- * Returns account balance of a network faucet account.
+ * Returns an account balance.
  *
- * @return {Keys.KeyPair} An on-chain account key.
+ * @return {KeyPair} A key pair to be mapped to an on-chain account.
 */
-export const getAccount = async (keyPair) => {
+export const getBalance = async (keyPair) => {
     // Set client.
-    const client = getClientJsonRPC();
-
-    // Set state root hash.
-    const stateRootHash = (await client.getLatestBlockInfo()).block.header.state_root_hash;
-
-    // Set account.
-    const account = await client.getBlockState(
-        stateRootHash,
-        'account-hash-' + toAccountHashString(publicKey),
-        []
-    ).then(res => res.stored_value.Account);
-
-    return account;
-}
-
-/**
- * Returns account balance of a network faucet account.
- *
- * @return {KeyPair} An on-chain account key.
-*/
-export const getAccountBalance = async (keyPair) => {
-    // Set client.
-    const client = getClient();
+    const client = node.getClient();
 
     // Dispatch chain query.
-    let balance = await client.balanceOfByPublicKey(keyPair.publicKey);
+    const balance = await client.balanceOfByPublicKey(keyPair.publicKey);
 
-    // Return balance formatted as BigInt
+    // Return balance formatted as BigInt.
     return JSBI.BigInt(balance || 0);
 };
 
 /**
- * Returns account balance of a network faucet account.
+ * Returns a faucet account account balance.
  *
+ * @param {KeyPair} keyPair - ECC key pair associated with faucet account.
  * @return {BigInteger} Balance of a network faucet account.
 */
-export const getAccountBalanceOfFaucet = async () => {
-    // Set key pair associated with account.
-    const keyPair = crypto.getKeyPairOfFaucet();
+export const getBalanceOfFaucet = async (keyPair) => {
+    keyPair = keyPair || crypto.getKeyPairOfFaucet();
 
-    // Query chain & return balance.
-    return await getAccountBalance(keyPair);
+    return await getBalance(keyPair);
 };
 
 /**
- * Returns account balance of a network node account.
+ * Returns a node account account balance.
  *
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  * @return {BigInteger} Balance of a network user account.
 */
-export const getAccountBalanceOfNode = async (nodeID) => {
-    // Set key pair associated with account.
+export const getBalanceOfNode = async (nodeID) => {
     const keyPair = crypto.getKeyPairOfNode(nodeID);
 
-    // Query chain & return balance.
-    return await getAccountBalance(keyPair);
+    return await getBalance(keyPair);
 };
 
 /**
- * Returns account balance of a network user account.
+ * Returns account balances of all node accounts.
+ *
+ * @return {Array} Array of balances.
+*/
+export const getBalanceOfNodeSet = async (nodeID) => {
+    const keyPair = crypto.getKeyPairOfNode(nodeID);
+
+    return await getBalance(keyPair);
+};
+
+/**
+ * Returns a user account account balance.
  *
  * @param {Integer} userID - Identifier of an NCTL test user.
  * @return {BigInteger} Balance of a network user account.
 */
-export const getAccountBalanceOfUser = async (userID) => {
-    // Set key pair associated with account.
-    const keyPair = crypto.getKeyPairOfUser(userID);
-
-    // Query chain & return balance.
-    return await getAccountBalance(keyPair);
+export const getBalanceOfUser = async (keyPair) => {
+    return await getBalance(keyPair);
 };
 
 /**
- * Returns account balance of a network user account.
+ * Returns account balances of all user accounts.
  *
- * @return {Array} Array of user balances.
+ * @param {Array} keyPairArray - Array of ECC key pairs associated with NCTL test users.
+ * @return {Array} Array of balances.
 */
-export const getAccountBalanceOfUserSet = async () => {
-    return Promise.all(
-        constants.USER_ID_SET.map(getAccountBalanceOfUser)
-        )
+export const getBalanceOfUserSet = async (keyPairArray) => {
+    keyPairArray = keyPairArray || crypto.getKeyPairOfUserSet();
+
+    return Promise.all(keyPairArray.map(getBalanceOfUser));
+};
+
+/**
+ * Returns an account hash.
+ *
+ * @return {KeyPair} A key pair to be mapped to an on-chain account hash.
+*/
+export const getHash = (keyPair) => {
+    return Buffer.from(keyPair.accountHash()).toString('hex');
 };
