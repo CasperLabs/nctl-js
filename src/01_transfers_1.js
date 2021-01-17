@@ -1,16 +1,13 @@
 /**
- * @fileOverview CSPR JS SDK demo 02 - native transfers via SDK.
+ * @fileOverview CSPR JS SDK demo: TRANSFERS 01 - native transfers via JS SDK nctl wrapper.
  */
 
-import { 
-    DeployUtil
-} from 'casper-client-sdk';
-import * as nctl from './nctl/index';
 import * as sleep from 'sleep';
+import * as nctl from './nctl/index';
 
 
 // Demonstration entry point.
-const main = async (client) => {
+const main = async () => {
     // Step 0: set account keys.
     const keys = {
         faucet: nctl.crypto.getKeyPairOfFaucet(),
@@ -29,31 +26,17 @@ const main = async (client) => {
     console.log("------------------------------------------------------");
     console.log("Executing transfers:");    
     for (let userKeyPair of keys.users) {
-        // Set deploy params.
-        const params = {
-            deploy: new DeployUtil.DeployParams(
-                keys.faucet.publicKey,
-                nctl.constants.getChainID(),
-                ),
-            transfer: new DeployUtil.Transfer(
+        const deployHash = 
+            await nctl.accounts.setTransfer(
+                keys.faucet,
+                userKeyPair,
                 nctl.constants.TRANSFER_AMOUNT,
-                userKeyPair.publicKey
-                ),
-            payment: DeployUtil.standardPayment(nctl.constants.GAS_PAYMENT)
-        };
-
-        // Set deploy (unsigned).
-        const deployUnsigned = client.makeTransferDeploy(params.deploy, params.transfer, params.payment);
-
-        // Set deploy (signed).
-        const deploy = client.signDeploy(deployUnsigned, keys.faucet);
-
-        // Dispatch deploy to node.
-        const deployHash = await client.putDeploy(deploy);
-
-        // Log dispatched deploy.
-        logDeploy(client.deployToJson(deploy));
+                );
+        console.log(`... dispatched deploy: ${deployHash}`);
     }
+
+    // Step 3: allow chain to process deploys.
+    console.log("Awaiting transfers ...");    
     sleep.sleep('10');
 
     // Step 4: display final balances.
@@ -62,6 +45,7 @@ const main = async (client) => {
         faucet: await nctl.accounts.getBalanceOfFaucet(keys.faucet),
         users: await nctl.accounts.getBalanceOfUserSet(keys.users)
     });
+    console.log("------------------------------------------------------");
 };
 
 // Helper function to log balances.
@@ -73,16 +57,6 @@ const logBalances = async ({typeof: balanceType, faucet: faucetBalance, users: u
         const userID = userBalances.indexOf(userBalance) + 1;
         console.log(`... user ${userID}:   ${String(userBalance)}`);        
     }
-    console.log("------------------------------------------------------");
-};
-
-// Helper function to log deploy.
-const logDeploy = (deployAsJSON) => {
-    console.log("------------------------------------------------------");
-    console.log("Deploy Info:");
-    console.log(deployAsJSON);
-    console.log("... awaiting finalisation ... please wait ...");
-    console.log("------------------------------------------------------");
 };
 
 // Helper function to log account keys.
@@ -93,7 +67,6 @@ const logKeys = ({faucet: faucetKeyPair, users: userKeyPairs}) => {
     userKeyPairs.forEach((userKeyPair, idx) => {
         console.log(`... user ${idx + 1}:   ${userKeyPair.accountHex()}`);
     });
-    console.log("------------------------------------------------------");
 };
 
-main(nctl.node.getClient());
+main();

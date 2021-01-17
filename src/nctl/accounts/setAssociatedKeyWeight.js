@@ -37,14 +37,14 @@ const getDeploy = (account1, account2, weight) => {
     const deploy = client.makeDeploy(
         new DeployUtil.DeployParams(
             account1.publicKey,
-            utils.getChainID(),
+            constants.getChainID(),
         ),
         new DeployUtil.ModuleBytes(
             io.getContractWasm(CONTRACT_FILENAME),
             new RuntimeArgs([
-                new NamedArg("action", CLValue.fromString("set_key_weight")),
-                new NamedArg("account", CLValue.fromBytes(account2.accountHash())),
-                new NamedArg("weight", CLValue.fromU8(weight)),
+                new NamedArg("action", CLValue.string("set_key_weight")),
+                new NamedArg("account", CLValue.byteArray(account2.accountHash())),
+                new NamedArg("weight", CLValue.u8(weight)),
             ]).toBytes()
         ),
         DeployUtil.standardPayment(constants.GAS_PAYMENT)

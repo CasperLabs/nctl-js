@@ -14,11 +14,15 @@
     "sleep": "^6.3.0"
   },
   "scripts": {
-    "demo-01": "node -r esm -e 'require(\"./src/demo01.js\")'",
-    "demo-02": "node -r esm -e 'require(\"./src/demo02.js\")'",
-    "demo-03": "node -r esm -e 'require(\"./src/demo03.js\")'",
-    "demo-04": "node -r esm -e 'require(\"./src/demo04.js\")'",
-    "demo-05": "node -r esm -e 'require(\"./src/demo05.js\")'",
-    "demo-06": "node -r esm -e 'require(\"./src/demo06.js\")'"
+    "transfers-1": "node -r esm -e 'require(\"./src/01_transfers_1.js\")'",
+    "transfers-2": "node -r esm -e 'require(\"./src/01_transfers_2.js\")'",
+    "transfers-3": "node -r esm -e 'require(\"./src/01_transfers_3.js\")'",
+    "keys-1": "node -r esm -e 'require(\"./src/02_keys_1.js\")'",
+    "keys-2": "node -r esm -e 'require(\"./src/02_keys_2.js\")'",
+    "keys-3": "node -r esm -e 'require(\"./src/02_keys_3.js\")'",
+    "keys-4": "node -r esm -e 'require(\"./src/02_keys_4.js\")'",
+    "keys-5": "node -r esm -e 'require(\"./src/02_keys_5.js\")'",
+    "erc20-1": "node -r esm -e 'require(\"./src/03_erc20_1.js\")'",
+    "erc20-2": "node -r esm -e 'require(\"./src/03_erc20_2.js\")'"
   }
 }

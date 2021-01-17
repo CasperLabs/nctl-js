@@ -1,6 +1,5 @@
 /**
- * @fileOverview Demonstration of CSPR JS SDK - 03.
- * Transfers - query for all faucet main purse transfers.
+ * @fileOverview CSPR JS SDK demo: TRANSFERS 03 - query account transfers from event store.
  */
 
 import * as nctl from './nctl/index';

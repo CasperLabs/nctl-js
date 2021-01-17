@@ -16,8 +16,9 @@ import * as node from '../utils/node';
  */
 export default async (cp1, cp2, amount, approvalKeys = null) => {
     const [client, deploy] = getDeploy(cp1, cp2, amount);
+    approvalKeys = approvalKeys || [cp1];
 
-    return await node.dispatchDeploy(client, deploy, approvalKeys || [cp1]);
+    return await node.dispatchDeploy(client, deploy, approvalKeys);
 };
 
 /**
