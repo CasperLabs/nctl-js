@@ -1,5 +1,5 @@
 /**
- * @fileOverview CSPR JS SDK demo: KEYS 01 - revoke associated keys.
+ * @fileOverview CSPR JS SDK demo: KEYS 04 - revoke associated keys.
  */
 
 import * as sleep from 'sleep';

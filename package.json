@@ -23,6 +23,7 @@
     "keys-4": "node -r esm -e 'require(\"./src/02_keys_4.js\")'",
     "keys-5": "node -r esm -e 'require(\"./src/02_keys_5.js\")'",
     "erc20-1": "node -r esm -e 'require(\"./src/03_erc20_1.js\")'",
-    "erc20-2": "node -r esm -e 'require(\"./src/03_erc20_2.js\")'"
+    "erc20-2": "node -r esm -e 'require(\"./src/03_erc20_2.js\")'",
+    "erc20-3": "node -r esm -e 'require(\"./src/03_erc20_3.js\")'"
   }
 }

@@ -1,5 +1,5 @@
 /**
- * @fileOverview CSPR JS SDK demo: KEYS 03 - execute native transfers with multi-sig.
+ * @fileOverview CSPR JS SDK demo: KEYS 05 - execute native transfers with multi-sig and observe failure.
  */
 
 import * as sleep from 'sleep';

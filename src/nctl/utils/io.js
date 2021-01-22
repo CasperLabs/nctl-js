@@ -10,6 +10,17 @@ import * as constants from './constants';
 export const PATH_TO_NCTL = process.env.NCTL;
 
 /**
+ * Returns a binary as u8 array.
+ * @param {String} fileName - Name of binary file to be loaded into memory.
+ * @return {Uint8Array} Byte array.
+ */
+export const getBinary = (fileName) => {
+    const pathToBinary = getPathToBinary(fileName);
+
+    return new Uint8Array(fs.readFileSync(pathToBinary, null).buffer);
+};
+
+/**
  * Returns contract wasm as byte array.
  * @param {String} fileName - Name of a contract wasm file to be loaded into memory.
  * @return {Uint8Array} Byte array.

@@ -7,6 +7,9 @@ export const HD_WALLET_SEED = new Uint8Array([21,31]);
 // Default gas payment (motes).
 export const GAS_PAYMENT = 1e10;
 
+// Default gas payment (motes).
+export const GAS_PAYMENT_FOR_CONTRACT_INSTALLATION = 7e10;
+
 // Default NCTL net identifier.
 export const NET_ID = 1;
 

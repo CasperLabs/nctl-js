@@ -9,5 +9,5 @@
  * @return {String} A chain identifier.
 */
 export const getAccountHash = (keyPair) => {
-    return `account-hash-${keyPair.accountHash()}`;
+    return `account-hash-${Buffer.from(keyPair.accountHash()).toString('hex')}`;
 };

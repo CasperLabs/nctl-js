@@ -4,15 +4,38 @@
 
 import * as JSBI from 'jsbi';
 
+import * as clargs from '../utils/clargs';
 import * as constants from '../utils/constants';
 import * as crypto from '../utils/crypto';
 import * as node from '../utils/node';
+import * as state from '../state';
 
+
+/**
+ * Returns on-chain account details.
+ *
+ * @param {KeyPair} keyPair - ECC key pair associated with an on-chain account.
+ * @return {Object} On-chain account information.
+*/
+export const getAccount = async (keyPair) => {
+    const accountHash = clargs.getAccountHash(keyPair);
+    const stateRootHash = await state.getRootHash();
+    const client = node.getClient();
+
+    const {
+        stored_value: {
+            Account: account
+        }
+    } = await client.nodeClient.getBlockState(stateRootHash, accountHash, []);
+
+    return account;
+};
 
 /**
  * Returns an account balance.
  *
- * @return {KeyPair} A key pair to be mapped to an on-chain account.
+ * @param {KeyPair} keyPair - ECC key pair associated with an on-chain account.
+ * @return {JSBI.BigInt} On-chain account balance.
 */
 export const getBalance = async (keyPair) => {
     // Set client.
@@ -85,8 +108,23 @@ export const getBalanceOfUserSet = async (keyPairArray) => {
 /**
  * Returns an account hash.
  *
- * @return {KeyPair} A key pair to be mapped to an on-chain account hash.
+ * @param {KeyPair} keyPair - ECC key pair associated with an on-chain account.
+ * @return {String} Hexadecimal representation of an on-chain account hash.
 */
 export const getHash = (keyPair) => {
     return Buffer.from(keyPair.accountHash()).toString('hex');
+};
+
+/**
+ * Returns a named key associated with on-chain account .
+ *
+ * @param {KeyPair} keyPair - ECC key pair associated with an on-chain account.
+ * @param {String} namedKeyID - Identifier of associated named key.
+ * @return {String} The named key.
+*/
+export const getNamedKey = async (keyPair, namedKeyID) => {
+    let { named_keys } = await getAccount(keyPair);    
+    named_keys = named_keys.filter(i => i.name == namedKeyID);
+
+    return named_keys.length > 0 ? named_keys[0].key : undefined;
 };
