@@ -30,10 +30,12 @@ const main = async () => {
     console.log("... from faucet to user 4 signed by users 1, 2 & 3");
 
     // Transfer to user 3 using default key.
-    await nctl.accounts.setTransfer(faucet, user_3, 100000000);
+    const deploy_hash_1 = await nctl.accounts.setTransfer(faucet, user_3, 100000000);
+    console.log(deploy_hash_1);
 
     // Transfer to user 4 using multi-sig - SHOULD FAIL !
-    await nctl.accounts.setTransfer(faucet, user_4, 100000000, MULTI_SIG_APPROVALS)
+    const deploy_hash_2 = await nctl.accounts.setTransfer(faucet, user_4, 100000000, MULTI_SIG_APPROVALS);
+    console.log(deploy_hash_2);
 
     console.log("------------------------------------------------------");
     console.log("... awaiting deploys to finalise ... ");

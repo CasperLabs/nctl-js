@@ -29,13 +29,13 @@ const main = async (client) => {
             ownerKeyPair.publicKey,
             nctl.constants.getChainID(),
         ),
-        new DeployUtil.ModuleBytes(
+        DeployUtil.ExecutableDeployItem.newModuleBytes(
             nctl.io.getBinary("erc20.wasm"),
-            new RuntimeArgs([
+            RuntimeArgs.fromNamedArgs([
                 new NamedArg("tokenName", CLValue.string(TOKEN_NAME)),
                 new NamedArg("tokenSymbol", CLValue.string(TOKEN_SYMBOL)),
                 new NamedArg("tokenTotalSupply", CLValue.u512(TOKEN_TOTAL_SUPPLY)),
-            ]).toBytes()
+            ])
         ),
         DeployUtil.standardPayment(nctl.constants.GAS_PAYMENT_FOR_CONTRACT_INSTALLATION)
     );

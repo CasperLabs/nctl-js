@@ -45,9 +45,9 @@
     "@types/bn.js" "*"
 
 "@types/node@*":
-  version "14.14.21"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.21.tgz#d934aacc22424fe9622ebf6857370c052eae464e"
-  integrity sha512-cHYfKsnwllYhjOzuC5q1VpguABBeecUp24yFluHpn/BQaVxB1CuQ1FSRZCzrPxrkIfWISXV2LbeoBthLWg0+0A==
+  version "14.14.22"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.22.tgz#0d29f382472c4ccf3bd96ff0ce47daf5b7b84b18"
+  integrity sha512-g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==
 
 "@types/pbkdf2@^3.0.0":
   version "3.1.0"
@@ -136,9 +136,9 @@ buffer-xor@^1.0.3:
   integrity sha1-JuYe0UIvtw3ULm42cp7VHYVf6Nk=
 
 casper-client-sdk@^1.0.5:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/casper-client-sdk/-/casper-client-sdk-1.0.10.tgz#502e05187b2b3ecc6f276610abef670a2ed0817c"
-  integrity sha512-YTu+TtMP1fcOpEG9VHvfjAgUM6rMJoSdVI2JeAYOIRnDBCDVNiJZKjf1MJHlPYWHnbtIlgbIiBG8HsSvnHumZQ==
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/casper-client-sdk/-/casper-client-sdk-1.0.13.tgz#e6eb1e52930e12ab4649f509f42048a87dccf382"
+  integrity sha512-EeryfzMT1sJ1YXpsrQau0r6rT6kGp4eHE3OvkvijoRiA7j8Cw6hWSWHKgArAV59gQTs8tzzXVwFsjuNnhQP4iA==
   dependencies:
     "@ethersproject/bignumber" "^5.0.8"
     "@ethersproject/bytes" "^5.0.5"
@@ -247,9 +247,9 @@ evp_bytestokey@^1.0.3:
     safe-buffer "^5.1.1"
 
 follow-redirects@^1.10.0:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
-  integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.2.tgz#dd73c8effc12728ba5cf4259d760ea5fb83e3147"
+  integrity sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
 
 hash-base@^3.0.0:
   version "3.1.0"
@@ -513,9 +513,9 @@ tweetnacl-util@^0.15.0:
   integrity sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==
 
 typedjson@^1.6.0-rc2:
-  version "1.6.0-rc4"
-  resolved "https://registry.yarnpkg.com/typedjson/-/typedjson-1.6.0-rc4.tgz#4170befc1b27ce45c1008318cab4f9d10906b7bd"
-  integrity sha512-BD20Wl7lKBoEsRB5dmQnzfAtk/W/nnTiQynn6XE8ClLoeWXtlVu/b3qUYSznLG7HLjn/jXxMK2wxDan80kriaw==
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/typedjson/-/typedjson-1.6.0.tgz#684a6679bbd0392fe7f068e0d3203d95946fabbf"
+  integrity sha512-bUTh55tSFWwnBNwnhpoL1nZh5oKsSBfatv5Y5GJV6dS9hU0+UAFnYfRq2RrSWBONzUO4VpaymeCk60yD8+3GXg==
   dependencies:
     tslib "^2.0.1"
 

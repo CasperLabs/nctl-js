@@ -29,11 +29,13 @@ const getDeploy = (cp1, cp2, amount) => {
     const deploy = client.makeTransferDeploy(
         new DeployUtil.DeployParams(
             cp1.publicKey,
-            constants.getChainID(),
+            constants.getChainID()
             ),
-        new DeployUtil.Transfer(
+        DeployUtil.ExecutableDeployItem.newTransfer(
             amount,
-            cp2.publicKey
+            cp2.publicKey,
+            null,
+            null
             ),
         DeployUtil.standardPayment(constants.GAS_PAYMENT)
     );

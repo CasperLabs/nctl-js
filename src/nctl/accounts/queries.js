@@ -38,13 +38,9 @@ export const getAccount = async (keyPair) => {
  * @return {JSBI.BigInt} On-chain account balance.
 */
 export const getBalance = async (keyPair) => {
-    // Set client.
     const client = node.getClient();
-
-    // Dispatch chain query.
     const balance = await client.balanceOfByPublicKey(keyPair.publicKey);
 
-    // Return balance formatted as BigInt.
     return JSBI.BigInt(balance || 0);
 };
 

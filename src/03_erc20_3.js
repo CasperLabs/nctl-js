@@ -47,10 +47,10 @@ const dispatchDeploy = async (client, ownerKeyPair, userKeyPair) => {
             new DeployUtil.StoredContractByName(
                 "ERC20",
                 "transfer",
-                new RuntimeArgs([
+                RuntimeArgs.fromNamedArgs([
                     new NamedArg("recipient", CLValue.byteArray(userKeyPair.accountHash())),
                     new NamedArg("amount", CLValue.u256(AMOUNT)),
-                ]).toBytes()
+                ])
             ),
             DeployUtil.standardPayment(nctl.constants.GAS_PAYMENT)
         )

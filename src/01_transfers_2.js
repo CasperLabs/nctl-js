@@ -35,7 +35,7 @@ const main = async (client) => {
                 keys.faucet.publicKey,
                 nctl.constants.getChainID(),
                 ),
-            transfer: new DeployUtil.Transfer(
+            transfer: DeployUtil.ExecutableDeployItem.newTransfer(
                 nctl.constants.TRANSFER_AMOUNT,
                 userKeyPair.publicKey
                 ),

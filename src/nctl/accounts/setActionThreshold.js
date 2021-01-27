@@ -17,10 +17,10 @@ const CONTRACT_FILENAME = "keys-manager.wasm";
 
 
 /**
- * Returns randomness, i.e. entropy, derived from a PRNG.
- * @param {KeyPair} account - Size in bytes of generated entropy.
- * @param {String} actionType - The type of action for which a threshold is to be assigned.
- * @param {Integer} weight - Minimum approval weight required to execute action.
+ * Updates the weight of a set of approval keys associated with an on-chain account.
+ * @param {KeyPair} account - An account with which a key association is being 
+ * @param {Integer} weight - The associated key's approval weight.
+ * @param {Array} approvalKeys - Set of keys for deploy approval.
  * @return {String} Dispatched deploy hash.
  */
 export default async (account, actionType, weight) => {
@@ -39,12 +39,12 @@ const getDeploy = (account, actionType, weight) => {
             account.publicKey,
             constants.getChainID(),
         ),
-        new DeployUtil.ModuleBytes(
+        DeployUtil.ExecutableDeployItem.newModuleBytes(
             io.getContractWasm(CONTRACT_FILENAME),
-            new RuntimeArgs([
+            RuntimeArgs.fromNamedArgs([
                 new NamedArg("action", CLValue.string(actionType)),
                 new NamedArg("weight", CLValue.u8(weight)),
-            ]).toBytes()
+            ])
         ),
         DeployUtil.standardPayment(constants.GAS_PAYMENT)
     );
