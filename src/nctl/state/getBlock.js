@@ -8,21 +8,22 @@ import * as node from '../utils/node';
  * @return {Object|null} On-chain block information.
 */
 export default async (blockID) => {
+    let apiResponse = null;
+
     const {
         nodeClient: client
     } = node.getClient();
 
     try {
         if (blockID === undefined || blockID === null) {
-            const apiResponse = await client.getLatestBlockInfo();
+            apiResponse = await client.getLatestBlockInfo();
         } else if (Number.isInteger(blockID)) {
-            const apiResponse = await client.getBlockInfoByHeight(blockID);
+            apiResponse = await client.getBlockInfoByHeight(blockID);
         } else {
-            const apiResponse = await client.getBlockInfo(blockID);
-        }        
+            apiResponse = await client.getBlockInfo(blockID);
+        } 
+        return apiResponse.block;       
     } catch (error) {
         return null;
     }
-
-    return apiResponse.block;
 };

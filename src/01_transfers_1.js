@@ -38,11 +38,7 @@ const main = async () => {
     // Step 3: allow chain to process deploys.
     console.log("------------------------------------------------------");
     console.log("Awaiting transfers ...");    
-    sleep.sleep('60');
-
-    for (let deployHash of deployHashes) {
-        console.log(await nctl.getDeploy(deployHash));
-    };
+    sleep.sleep('120');
 
     // Step 4: display final balances.
     logBalances({

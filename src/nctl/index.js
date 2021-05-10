@@ -25,6 +25,7 @@ import {
 } from './accounts';
 
 import {
+    awaitBlocks,
     getBlock,
     getDeploy,
     getStateKeyValue,
@@ -62,6 +63,7 @@ export {
     setAccountTransferBatch,
 
     // on-chain state;
+    awaitBlocks,
     getBlock,
     getDeploy,
     getStateKeyValue,
