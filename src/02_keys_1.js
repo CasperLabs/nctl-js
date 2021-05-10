@@ -7,10 +7,10 @@ import * as nctl from './nctl/index';
 
 
 // Set account keys.
-const faucet = nctl.crypto.getKeyPairOfFaucet();
-const user_1 = nctl.crypto.getKeyPairOfUser(1);
-const user_2 = nctl.crypto.getKeyPairOfUser(2);
-const user_3 = nctl.crypto.getKeyPairOfUser(3);
+const faucet = nctl.getKeyPairOfFaucet();
+const user_1 = nctl.getKeyPairOfUser(1);
+const user_2 = nctl.getKeyPairOfUser(2);
+const user_3 = nctl.getKeyPairOfUser(3);
 
 
 // Demonstration entry point.
@@ -22,12 +22,12 @@ const main = async () => {
     console.log("... user 3 -> 3");
 
     // Set default account key weight.
-    await nctl.accounts.setAssociatedKeyWeight(faucet, faucet, 10);
+    await nctl.setAccountAssociatedKeyWeight(faucet, faucet, 10);
 
     // Set 3rd party associated key weights.
-    await nctl.accounts.setAssociatedKeyWeight(faucet, user_1, 1);
-    await nctl.accounts.setAssociatedKeyWeight(faucet, user_2, 2);
-    await nctl.accounts.setAssociatedKeyWeight(faucet, user_3, 3);
+    await nctl.setAccountAssociatedKeyWeight(faucet, user_1, 1);
+    await nctl.setAccountAssociatedKeyWeight(faucet, user_2, 2);
+    await nctl.setAccountAssociatedKeyWeight(faucet, user_3, 3);
 
     console.log("------------------------------------------------------");
     console.log("... awaiting deploys to finalise ... ");

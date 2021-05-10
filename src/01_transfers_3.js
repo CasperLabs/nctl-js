@@ -8,11 +8,11 @@ import * as nctl from './nctl/index';
 // Demonstration entry point.
 const main = async (client) => {
     // Step 1: set faucet key pair.
-    const keyPair = nctl.crypto.getKeyPairOfFaucet();
+    const keyPair = nctl.getKeyPairOfFaucet();
     console.log(`Faucet account key:  ${keyPair.accountHex()}`);
 
     // Step 2: set faucet account hash.
-    const accountHash = nctl.accounts.getHash(keyPair);
+    const accountHash = nctl.getAccountHash(keyPair);
     console.log(`Faucet account hash:  ${accountHash}`);
 
     // Step 3: set faucet main purse Uref (on-chain query).

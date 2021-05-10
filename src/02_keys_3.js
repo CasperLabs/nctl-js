@@ -7,11 +7,11 @@ import * as nctl from './nctl/index';
 
 
 // Set account keys.
-const faucet = nctl.crypto.getKeyPairOfFaucet();
-const user_1 = nctl.crypto.getKeyPairOfUser(1);
-const user_2 = nctl.crypto.getKeyPairOfUser(2);
-const user_3 = nctl.crypto.getKeyPairOfUser(3);
-const user_4 = nctl.crypto.getKeyPairOfUser(4);
+const faucet = nctl.getKeyPairOfFaucet();
+const user_1 = nctl.getKeyPairOfUser(1);
+const user_2 = nctl.getKeyPairOfUser(2);
+const user_3 = nctl.getKeyPairOfUser(3);
+const user_4 = nctl.getKeyPairOfUser(4);
 
 // Set multi-sig approvals.
 const MULTI_SIG_APPROVALS = [user_1, user_2, user_3]
@@ -20,8 +20,8 @@ const MULTI_SIG_APPROVALS = [user_1, user_2, user_3]
 const main = async () => {
     logBalances({
         typeof: "initial",
-        faucet: await nctl.accounts.getBalanceOfFaucet(),
-        users: await nctl.accounts.getBalanceOfUserSet()
+        faucet: await nctl.getAccountBalanceOfFaucet(),
+        users: await nctl.getAccountBalanceOfUserSet()
     });
 
     console.log("------------------------------------------------------");
@@ -30,10 +30,10 @@ const main = async () => {
     console.log("... from faucet to user 4 signed by users 1, 2 & 3");
 
     // Transfer to user 3 using default key.
-    await nctl.accounts.setTransfer(faucet, user_3, 100000000);
+    await nctl.setAccountTransfer(faucet, user_3, 100000000);
 
     // Transfer to user 4 using multi-sig.
-    await nctl.accounts.setTransfer(faucet, user_4, 100000000, MULTI_SIG_APPROVALS)
+    await nctl.setAccountTransfer(faucet, user_4, 100000000, MULTI_SIG_APPROVALS)
 
     console.log("------------------------------------------------------");
     console.log("... awaiting deploys to finalise ... ");
@@ -41,8 +41,8 @@ const main = async () => {
 
     logBalances({
         typeof: "final",
-        faucet: await nctl.accounts.getBalanceOfFaucet(),
-        users: await nctl.accounts.getBalanceOfUserSet()
+        faucet: await nctl.getAccountBalanceOfFaucet(),
+        users: await nctl.getAccountBalanceOfUserSet()
     });
     console.log("------------------------------------------------------");
 };

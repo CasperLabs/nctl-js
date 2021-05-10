@@ -17,7 +17,7 @@ export const NET_ID = 1;
 export const NODE_ID = 1;
 
 // Default amount transferred between counter-parties .
-export const TRANSFER_AMOUNT = 1e9;
+export const TRANSFER_AMOUNT = 2500000000;
 
 // Default NCTL user identifiers.
 export const USER_ID_SET = [...Array(5).keys()].map(i => i + 1);

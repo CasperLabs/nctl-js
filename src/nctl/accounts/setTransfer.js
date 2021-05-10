@@ -3,6 +3,7 @@ const {
 } = require('casper-client-sdk');
 
 import * as constants from '../utils/constants';
+import * as misc from '../utils/misc';
 import * as node from '../utils/node';
 
 
@@ -35,7 +36,7 @@ const getDeploy = (cp1, cp2, amount) => {
             amount,
             cp2.publicKey,
             null,
-            null
+            misc.getRandomInteger(0, Number.MAX_SAFE_INTEGER)
             ),
         DeployUtil.standardPayment(constants.GAS_PAYMENT)
     );

@@ -19,7 +19,7 @@ import * as state from '../state';
 */
 export const getAccount = async (keyPair) => {
     const accountHash = clargs.getAccountHash(keyPair);
-    const stateRootHash = await state.getRootHash();
+    const stateRootHash = await state.getStateRootHash();
     const client = node.getClient();
 
     const {
@@ -37,7 +37,7 @@ export const getAccount = async (keyPair) => {
  * @param {KeyPair} keyPair - ECC key pair associated with an on-chain account.
  * @return {JSBI.BigInt} On-chain account balance.
 */
-export const getBalance = async (keyPair) => {
+export const getAccountBalance = async (keyPair) => {
     const client = node.getClient();
     const balance = await client.balanceOfByPublicKey(keyPair.publicKey);
 
@@ -50,10 +50,10 @@ export const getBalance = async (keyPair) => {
  * @param {KeyPair} keyPair - ECC key pair associated with faucet account.
  * @return {BigInteger} Balance of a network faucet account.
 */
-export const getBalanceOfFaucet = async (keyPair) => {
+export const getAccountBalanceOfFaucet = async (keyPair) => {
     keyPair = keyPair || crypto.getKeyPairOfFaucet();
 
-    return await getBalance(keyPair);
+    return await getAccountBalance(keyPair);
 };
 
 /**
@@ -62,10 +62,10 @@ export const getBalanceOfFaucet = async (keyPair) => {
  * @param {Integer} nodeID - Identifier of an NCTL test node.
  * @return {BigInteger} Balance of a network user account.
 */
-export const getBalanceOfNode = async (nodeID) => {
+export const getAccountBalanceOfNode = async (nodeID) => {
     const keyPair = crypto.getKeyPairOfNode(nodeID);
 
-    return await getBalance(keyPair);
+    return await getAccountBalance(keyPair);
 };
 
 /**
@@ -73,10 +73,10 @@ export const getBalanceOfNode = async (nodeID) => {
  *
  * @return {Array} Array of balances.
 */
-export const getBalanceOfNodeSet = async (nodeID) => {
+export const getAccountBalanceOfNodeSet = async (nodeID) => {
     const keyPair = crypto.getKeyPairOfNode(nodeID);
 
-    return await getBalance(keyPair);
+    return await getAccountBalance(keyPair);
 };
 
 /**
@@ -85,8 +85,8 @@ export const getBalanceOfNodeSet = async (nodeID) => {
  * @param {Integer} userID - Identifier of an NCTL test user.
  * @return {BigInteger} Balance of a network user account.
 */
-export const getBalanceOfUser = async (keyPair) => {
-    return await getBalance(keyPair);
+export const getAccountBalanceOfUser = async (keyPair) => {
+    return await getAccountBalance(keyPair);
 };
 
 /**
@@ -95,10 +95,10 @@ export const getBalanceOfUser = async (keyPair) => {
  * @param {Array} keyPairArray - Array of ECC key pairs associated with NCTL test users.
  * @return {Array} Array of balances.
 */
-export const getBalanceOfUserSet = async (keyPairArray) => {
+export const getAccountBalanceOfUserSet = async (keyPairArray) => {
     keyPairArray = keyPairArray || crypto.getKeyPairOfUserSet();
 
-    return Promise.all(keyPairArray.map(getBalanceOfUser));
+    return Promise.all(keyPairArray.map(getAccountBalanceOfUser));
 };
 
 /**
@@ -107,7 +107,7 @@ export const getBalanceOfUserSet = async (keyPairArray) => {
  * @param {KeyPair} keyPair - ECC key pair associated with an on-chain account.
  * @return {String} Hexadecimal representation of an on-chain account hash.
 */
-export const getHash = (keyPair) => {
+export const getAccountHash = (keyPair) => {
     return Buffer.from(keyPair.accountHash()).toString('hex');
 };
 
@@ -118,8 +118,8 @@ export const getHash = (keyPair) => {
  * @param {String} namedKeyID - Identifier of associated named key.
  * @return {String} The named key.
 */
-export const getNamedKey = async (keyPair, namedKeyID) => {
-    let { named_keys } = await getAccount(keyPair);    
+export const getAccountNamedKey = async (keyPair, namedKeyID) => {
+    let { named_keys } = await getAccountDetails(keyPair);    
     named_keys = named_keys.filter(i => i.name == namedKeyID);
 
     return named_keys.length > 0 ? named_keys[0].key : undefined;

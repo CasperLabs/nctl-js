@@ -24,7 +24,7 @@ const CONTRACT_FILENAME = "keys-manager.wasm";
  * @return {String} Dispatched deploy hash.
  */
 export default async (account, actionType, weight) => {
-    const [client, deploy] = getDeploy(account, actionType, weight);
+    const { client, deploy } = getDeploy(account, actionType, weight);
     
     return await node.dispatchDeploy(client, deploy, [account]);
 };
@@ -33,12 +33,17 @@ export default async (account, actionType, weight) => {
  * Returns native transfer deploy for dispatch to chain.
  */
 const getDeploy = (account, actionType, weight) => {
+    // Dispatch node client.
     const client = node.getClient();
+
+    // Construct deploy:
     const deploy = client.makeDeploy(
+        // ... header;
         new DeployUtil.DeployParams(
             account.publicKey,
             constants.getChainID(),
         ),
+        // ... session;
         DeployUtil.ExecutableDeployItem.newModuleBytes(
             io.getContractWasm(CONTRACT_FILENAME),
             RuntimeArgs.fromNamedArgs([
@@ -46,8 +51,9 @@ const getDeploy = (account, actionType, weight) => {
                 new NamedArg("weight", CLValue.u8(weight)),
             ])
         ),
+        // ... payment;
         DeployUtil.standardPayment(constants.GAS_PAYMENT)
     );
 
-    return [client, deploy];
+    return { client, deploy };
 };

@@ -1,42 +1,12 @@
-/**
- * @fileOverview NCTL chain state functions.
- */
+import getBlock from './getBlock';
+import getDeploy from './getDeploy';
+import getStateKeyValue from './getStateKeyValue';
+import getStateRootHash from './getStateRootHash';
 
-import * as node from '../utils/node';
 
-/**
- * Returns current state root hash at a random node.
- *
- * @return {String} A state root hash.
-*/
-export const getRootHash = async () => {
-    const client = node.getClient();
-    const { 
-        block: { 
-            header: { 
-                state_root_hash: stateRootHash 
-            } 
-        } 
-    } = await client.nodeClient.getLatestBlockInfo();
-
-    return stateRootHash;
-}; 
-
-/**
- * Returns a value stored under a global state key.
- *
- * @return {String} JSON representation of decoded CLValue.
-*/
-export const getStoredValue = async (key, path) => {
-    const client = node.getClient();
-    const stateRootHash = await getRootHash();
-    const {
-        stored_value: {
-            CLValue: {
-                parsed_to_json: storedValue
-            }
-        }
-    } = await client.nodeClient.getBlockState(stateRootHash, key, [path]);
-
-    return storedValue;
-};
+export {
+    getBlock,
+    getDeploy,
+    getStateKeyValue,
+    getStateRootHash,
+}

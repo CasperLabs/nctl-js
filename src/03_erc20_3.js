@@ -18,8 +18,8 @@ const AMOUNT = 2000000000;
 // Demonstration entry point.
 const main = async (client) => {
     const keys = {
-        owner: nctl.crypto.getKeyPairOfFaucet(),
-        users: nctl.crypto.getKeyPairOfUserSet()
+        owner: nctl.getKeyPairOfFaucet(),
+        users: nctl.getKeyPairOfUserSet()
     };
     logKeys(keys);
 

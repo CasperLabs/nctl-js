@@ -7,7 +7,7 @@ import * as nctl from './nctl/index';
 
 
 // Set account key.
-const faucet = nctl.crypto.getKeyPairOfFaucet();
+const faucet = nctl.getKeyPairOfFaucet();
 
 // Demonstration entry point.
 const main = async () => {
@@ -16,10 +16,10 @@ const main = async () => {
     console.log("... key management -> 8");
 
     // Set action threshold: deploy dispatch.
-    await nctl.accounts.setActionThreshold(faucet, "set_deployment_threshold", 5);
+    await nctl.setAccountActionThreshold(faucet, "set_deployment_threshold", 5);
 
     // Set action threshold: key management.
-    await nctl.accounts.setActionThreshold(faucet, "set_key_management_threshold", 8);
+    await nctl.setAccountActionThreshold(faucet, "set_key_management_threshold", 8);
 
     console.log("------------------------------------------------------");
     console.log("... awaiting deploys to finalise ... ");

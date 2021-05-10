@@ -8,42 +8,47 @@ import * as nctl from './nctl/index';
 
 // Demonstration entry point.
 const main = async () => {
+
     // Step 0: set account keys.
     const keys = {
-        faucet: nctl.crypto.getKeyPairOfFaucet(),
-        users: nctl.crypto.getKeyPairOfUserSet()
+        faucet: nctl.getKeyPairOfFaucet(),
+        users: nctl.getKeyPairOfUserSet()
     };
     logKeys(keys);
 
     // Step 1: display initial balances.
     logBalances({
         typeof: "initial",
-        faucet: await nctl.accounts.getBalanceOfFaucet(keys.faucet),
-        users: await nctl.accounts.getBalanceOfUserSet(keys.users)
+        faucet: await nctl.getAccountBalanceOfFaucet(keys.faucet),
+        users: await nctl.getAccountBalanceOfUserSet(keys.users)
     });
 
-    // Step 2: dispatch a native transfer from faucet to each user.
+    // Step 2: dispatch a batch of native transfer - one per user.
     console.log("------------------------------------------------------");
-    console.log("Executing transfers:");    
-    for (let userKeyPair of keys.users) {
-        const deployHash = 
-            await nctl.accounts.setTransfer(
-                keys.faucet,
-                userKeyPair,
-                nctl.constants.TRANSFER_AMOUNT,
-                );
-        console.log(`... dispatched deploy: ${deployHash}`);
-    }
+    console.log("Executing transfers:");
+    const deployHashes = await nctl.setAccountTransferBatch(
+        keys.faucet,
+        keys.users,
+        nctl.constants.TRANSFER_AMOUNT
+    );
+    for (let deployHash of deployHashes) {
+        console.log(`... dispatched transfer deploy: ${deployHash}`);
+    };
 
     // Step 3: allow chain to process deploys.
+    console.log("------------------------------------------------------");
     console.log("Awaiting transfers ...");    
-    sleep.sleep('10');
+    sleep.sleep('60');
+
+    for (let deployHash of deployHashes) {
+        console.log(await nctl.getDeploy(deployHash));
+    };
 
     // Step 4: display final balances.
     logBalances({
         typeof: "final",
-        faucet: await nctl.accounts.getBalanceOfFaucet(keys.faucet),
-        users: await nctl.accounts.getBalanceOfUserSet(keys.users)
+        faucet: await nctl.getAccountBalanceOfFaucet(keys.faucet),
+        users: await nctl.getAccountBalanceOfUserSet(keys.users)
     });
     console.log("------------------------------------------------------");
 };

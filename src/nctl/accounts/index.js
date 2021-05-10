@@ -1,28 +1,30 @@
+import getAccountDetails from './getDetails';
+import getAccountHash from './getHash';
 import {
-    getAccount,
-    getBalance,
-    getBalanceOfFaucet,
-    getBalanceOfNode,
-    getBalanceOfUser,
-    getBalanceOfUserSet,
-    getHash,
-    getNamedKey,
-} from './queries';
-import setActionThreshold from './setActionThreshold';
-import setAssociatedKeyWeight from './setAssociatedKeyWeight';
-import setTransfer from './setTransfer';
+    getAccountBalance,
+    getAccountBalanceOfFaucet,
+    getAccountBalanceOfNode,
+    getAccountBalanceOfUser,
+    getAccountBalanceOfUserSet,
+} from './getBalance';
+import getAccountNamedKey from './getNamedKey';
+import setAccountActionThreshold from './setActionThreshold';
+import setAccountAssociatedKeyWeight from './setAssociatedKeyWeight';
+import setAccountTransfer from './setTransfer';
+import setAccountTransferBatch from './setTransferBatch';
 
 
 export {
-    getAccount,
-    getBalance,
-    getBalanceOfFaucet,
-    getBalanceOfNode,
-    getBalanceOfUser,
-    getBalanceOfUserSet,
-    getHash,
-    getNamedKey,
-    setActionThreshold,
-    setAssociatedKeyWeight,
-    setTransfer,
+    getAccountBalance,
+    getAccountBalanceOfFaucet,
+    getAccountBalanceOfNode,
+    getAccountBalanceOfUser,
+    getAccountBalanceOfUserSet,
+    getAccountDetails,
+    getAccountHash,
+    getAccountNamedKey,
+    setAccountActionThreshold,
+    setAccountAssociatedKeyWeight,
+    setAccountTransfer,
+    setAccountTransferBatch,
 };

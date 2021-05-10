@@ -28,7 +28,7 @@ export const dispatchDeploy = async (client, deploy, approvals) => {
 export const getClient = (nodeID = constants.NODE_ID) => {
     const nodeURL = getNodeURLForRPC(constants.NET_ID, nodeID);
 
-    return new CasperClient(nodeURL, 'http://localhost:3000');
+    return new CasperClient(nodeURL);
 };
 
 /**

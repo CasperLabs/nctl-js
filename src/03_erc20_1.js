@@ -20,7 +20,7 @@ const TOKEN_TOTAL_SUPPLY = 1e15;
 // Demonstration entry point.
 const main = async (client) => {
     // Step 1: set contract owner account key.
-    const ownerKeyPair = nctl.crypto.getKeyPairOfFaucet();
+    const ownerKeyPair = nctl.getKeyPairOfFaucet();
     logContractOwnerKeyPair(ownerKeyPair);
 
     // Step 2: set contract installation deploy.
