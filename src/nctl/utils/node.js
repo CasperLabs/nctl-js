@@ -61,7 +61,7 @@ export const getNodePort = (nodeID, basePort) => {
  * @return {String} A node's REST API endpoint.
 */
 export const getNodeURLForREST = (nodeID = constants.NODE_ID) => {
-    const port = getNodePort(nodeID, 50000); 
+    const port = getNodePort(nodeID, 14000); 
 
     return `http://localhost:${port}/rest`
 };
@@ -73,7 +73,7 @@ export const getNodeURLForREST = (nodeID = constants.NODE_ID) => {
  * @return {String} A node's JSON-RPC API endpoint.
 */
 export const getNodeURLForRPC = (nodeID = constants.NODE_ID) => {
-    const port = getNodePort(nodeID, 40000); 
+    const port = getNodePort(nodeID, 11000); 
 
     return `http://localhost:${port}/rpc`
 };
@@ -85,7 +85,7 @@ export const getNodeURLForRPC = (nodeID = constants.NODE_ID) => {
  * @return {String} A node's SSE API endpoint.
 */
 export const getNodeURLForSSE = (nodeID = constants.NODE_ID) => {
-    const port = getNodePort(nodeID, 60000); 
+    const port = getNodePort(nodeID, 18000); 
 
     return `http://localhost:${port}/events`
 };

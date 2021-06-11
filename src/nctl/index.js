@@ -25,13 +25,16 @@ import {
 } from './accounts';
 
 import {
-    awaitBlocks,
+    awaitBlock,
+    awaitBlockOffset,
+    awaitDeploy,
+    awaitEra,
+    awaitEraOffset,
     getBlock,
     getDeploy,
     getStateKeyValue,
     getStateRootHash
 } from './state';
-
 
 import {
     getKeyPairOfFaucet,
@@ -63,7 +66,11 @@ export {
     setAccountTransferBatch,
 
     // on-chain state;
-    awaitBlocks,
+    awaitBlock,
+    awaitBlockOffset,
+    awaitDeploy,
+    awaitEra,
+    awaitEraOffset,
     getBlock,
     getDeploy,
     getStateKeyValue,

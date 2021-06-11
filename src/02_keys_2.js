@@ -21,6 +21,9 @@ const main = async () => {
     // Set action threshold: key management.
     await nctl.setAccountActionThreshold(faucet, "set_key_management_threshold", 8);
 
+    // Set action threshold: key management.
+    await nctl.setAccountActionThreshold(faucet, "set_payment_threshold", 5);
+
     console.log("------------------------------------------------------");
     console.log("... awaiting deploys to finalise ... ");
     sleep.sleep('20');

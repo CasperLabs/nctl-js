@@ -356,10 +356,10 @@ caniuse-lite@^1.0.30001219:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001227.tgz#437fe8b514ac4512d9bdb4ea79f20c400bd0b4d1"
   integrity sha512-HHZT4QpUw4Pf45IE3xxKAPgAN3q2aRai/x5TSHP8lrrKzARoH0IeBviwStcRi5lsFlscTkBbXC7gXyms43151A==
 
-casper-client-sdk@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/casper-client-sdk/-/casper-client-sdk-1.2.0.tgz#c327afb348bd0b9e83737e1f46b3a474d072463d"
-  integrity sha512-qqy6WJ4bCCdYtFFOZzd+DrPH89zrPYRJNm2dgOWTNmU5xc0Yil7QBNbIbWIbGzDW9TY/4nBjrR5+lfQqoMVm8w==
+casper-client-sdk@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/casper-client-sdk/-/casper-client-sdk-1.3.1.tgz#b151ef8a08a08eab80820cd5ea6794839c8d256e"
+  integrity sha512-XsHKrxkb2FsKXX0jiT3ZckJ/EJtao3x3vv0vLx4wTJlDY6oXK6rf9uzIk1ELpueUqFE7TakpsmGXawxbCShzZQ==
   dependencies:
     "@ethersproject/bignumber" "^5.0.8"
     "@ethersproject/bytes" "^5.0.5"

@@ -27,37 +27,22 @@ const main = async () => {
 
     // Step 2: dispatch a batch of native transfer - one per user.
     console.log("------------------------------------------------------");
-    console.log("Executing transfers:");
+    console.log("Dispatching transfers:");
     const deployHashes = await nctl.setAccountTransferBatch(
         keys.faucet,
         keys.users,
         nctl.constants.TRANSFER_AMOUNT
     );
+    for (let deployHash of deployHashes) {
+        console.log(`... ${deployHash}`);    
+    };
 
     // Step 3: allow chain to process deploys.
     console.log("------------------------------------------------------");
     console.log("Awaiting transfers ...");    
-    sleep.sleep('180');
-
     for (let deployHash of deployHashes) {
-        console.log(await nctl.getDeploy(deployHash));
-        console.log(`... dispatched transfer deploy: ${deployHash}`);
+        await nctl.awaitDeploy(deployHash)
     };
-
-    // Awaiting blockchain via polling.
-    // Latency = 1-2 seconds.
-    await nctl.awaitBlock(450);
-    await nctl.awaitBlockOffset(4);
-    await nctl.awaitEra(45);
-    await nctl.awaitEraOffset(3);
-    await nctl.awaitDeploy("b07ce6614e0dc221f013310399f03d1602cc8c9a31b6edc2f984113c81f1c825", 300);
-
-    // Awaiting blockchain via event binding.
-    // Latency = 0.1 seconds.
-    await nctl.bindToEvent("DeployProcessed", deployHashes, [
-        updateDatabase,
-        notifyUser
-    ], onDeployTimeout);
 
     // Step 4: display final balances.
     logBalances({
